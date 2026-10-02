@@ -183,3 +183,7 @@ Running `train.py` renders two diagnostic figures:
 - [ ] Z-score feature standardization and min-max normalization utilities
 - [ ] L1 (Lasso) and L2 (Ridge) weight regularization penalties
 - [ ] Mini-batch and Stochastic Gradient Descent (SGD) optimizers
+
+## License
+
+This project is licensed under the MIT License. See the [MIT License](https://spdx.org/licenses/MIT?utm_source=chatgpt.com) file for details.
