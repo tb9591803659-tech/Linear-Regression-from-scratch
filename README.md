@@ -80,3 +80,106 @@ linear-regression-from-scratch/
 └── README.md           # Technical documentation
 ```
 
+## Module Responsibilities
+
+| File | Primary Functions / Classes | Core Responsibility |
+| :--- | :--- | :--- |
+| `model.py` | `LinearRegressionScratch` | Encapsulates parameters ($w, b$), learning rate, batch updates, and cost history. |
+| `train.py` | `main()` | Orchestrates synthetic dataset generation, training execution, evaluation, and visualizations. |
+
+## Evaluation Metrics
+
+Model fit and predictive fidelity are measured against four standard regression statistics:
+
+| Metric | Formulation | Interpretation |
+| :--- | :--- | :--- |
+| **Mean Squared Error (MSE)** | $\frac{1}{n} \sum (y - \hat{y})^2$ | Penalizes larger residuals quadratically; measures variance. |
+| **Mean Absolute Error (MAE)** | $\frac{1}{n} \sum \|y - \hat{y}\|$ | Direct linear average of absolute prediction discrepancies. |
+| **Root Mean Squared Error (RMSE)** | $\sqrt{\text{MSE}}$ | Error metric expressed in the original units of target $y$. |
+| **Coefficient of Determination ($R^2$)** | $1 - \frac{\sum (y - \hat{y})^2}{\sum (y - \bar{y})^2}$ | Proportion of total variance explained by model (1.0 = perfect fit). |
+
+
+## Quickstart
+
+### Prerequisites
+
+- Python 3.8 or higher
+
+### 1. Clone and enter the project
+
+```bash
+git clone https://github.com/<your-username>/linear-regression-from-scratch.git
+cd linear-regression-from-scratch
+```
+
+### 2. Set up a virtual environment and install dependencies
+
+```bash
+# Create an isolated virtual environment
+python -m venv venv
+
+# Activate it
+source venv/bin/activate      # macOS/Linux
+venv\Scripts\activate         # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 3. Run the training pipeline
+
+```bash
+python train.py
+```
+
+## Sample Run & Expected Output
+
+### Training Data Setup
+
+```python
+X = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 6, 8, 10])  # Follows y = 2x + 0
+```
+
+### Terminal Output
+
+```text
+[Training Completed: 1000 Epochs]
+Learned Parameters:
+  • Weight (w) : 1.9998  (Target: 2.0)
+  • Bias (b)   : 0.0006  (Target: 0.0)
+
+Evaluation on Training Data:
+  • MSE  : 0.0000003
+  • MAE  : 0.0004
+  • RMSE : 0.0005
+  • R²   : 0.9999999
+
+Out-of-Sample Predictions (X_new = [6, 7, 8]):
+  • Input: 6  -->  Predicted: 11.999
+  • Input: 7  -->  Predicted: 13.999
+  • Input: 8  -->  Predicted: 15.999
+```
+
+### Output Visualizations
+
+Running `train.py` renders two diagnostic figures:
+
+- **Best-Fit Regression Line:** Overlays the learned line $\hat{y} = wx + b$ on the original training data points.
+- **Cost Convergence Curve:** Plots $J(w, b)$ over all iterations to confirm the cost descends asymptotically toward zero.
+
+## Scratch vs. Library Implementation
+
+| Aspect | `sklearn.linear_model.LinearRegression` | This Scratch Implementation |
+|---|---|---|
+| **Solving Method** | Closed-form Ordinary Least Squares (`scipy.linalg.lstsq`) | Numerical optimization (Batch Gradient Descent) |
+| **Hyperparameters** | None (direct matrix factorization) | Learning rate ($\alpha$), total epochs |
+| **Observability** | Final coefficients only (`.coef_`, `.intercept_`) | Full step-by-step state, per-epoch loss, and gradient traces |
+| **Primary Purpose** | Production efficiency and scale | Pedagogical clarity and algorithmic understanding |
+
+## Roadmap
+
+- [ ] Support for Multiple Linear Regression ($X \in \mathbb{R}^{n \times d}$)
+- [ ] Z-score feature standardization and min-max normalization utilities
+- [ ] L1 (Lasso) and L2 (Ridge) weight regularization penalties
+- [ ] Mini-batch and Stochastic Gradient Descent (SGD) optimizers
